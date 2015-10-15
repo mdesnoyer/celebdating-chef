@@ -6,6 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
+chef_gem 'aws-sdk'
 
 # Setup users and directories
 user "neon" do
@@ -92,7 +93,7 @@ node[:deploy].each do |app_name, deploy|
     source node[:celebdating][:face_cluster_model]
     owner "neon"
     group "neon"
-    action :create"
+    action :create
     mode "0644"
   end
 
