@@ -87,6 +87,15 @@ node[:deploy].each do |app_name, deploy|
     ssh_wrapper "#{node[:celebdating][:root_path]}/celebdating-wrap-ssh4git.sh"
   end
 
+  # Get the model file
+  s3_file "#{repo_path}/faces.model" do
+    source node[:celebdating][:face_cluster_model]
+    owner "neon"
+    group "neon"
+    action :create"
+    mode "0644"
+  end
+
   # Create the virtual environment and install python dependencies
   venv = "#{repo_path}/.pyenv"
   python_virtualenv venv do
@@ -112,7 +121,8 @@ node[:deploy].each do |app_name, deploy|
     group "root"
     mode "0644"
     variables({repo_root => repo_path,
-               db => deploy[:database]})
+                db => deploy[:database],
+                model_file => "#{repo_path}/faces.model"})
   end
 
   # Define the service

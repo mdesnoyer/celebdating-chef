@@ -12,6 +12,6 @@ setgid neon
 chdir <%= @repo_root %>
 env VIRTUAL_ENV=<%= @repo_root %>/.pyenv
 env PATH="${VIRTUAL_ENV}/bin:$PATH"
-exec ${VIRTUAL_ENV}/bin/python <%= @repo_root %>/server/api/controllers.py --db_host <%= @db[:host]%> --db_user <%=@db[:username]%> --db_port <%=db[:port]%> --db_password <%=@db[:password]%> >> <%= @node[:celebdating][:log_dir]%>/celeb_backend.stdout 2> <%= @node[:celebdating][:log_dir]%>/celeb_backend.stderr
+exec ${VIRTUAL_ENV}/bin/python <%= @repo_root %>/server/api/controllers.py --db_host <%= @db[:host]%> --db_user <%= @db[:username] %> --db_port <%= db[:port] %> --db_password <%= @db[:password] %> --model <%= model_file %>>> <%= @node[:celebdating][:log_dir] %>/celeb_backend.stdout 2> <%= @node[:celebdating][:log_dir]%>/celeb_backend.stderr
 
 respawn
