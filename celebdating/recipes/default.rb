@@ -60,7 +60,7 @@ node[:deploy].each do |app_name, deploy|
   Chef::Log.info("Deploying app #{app_name} using code path #{repo_path}")
 
   # Put the ssh key to get to the repo
-  ssh_keyfile = "#{node[:celebdating][:root_path]}/.ssh/#{app_name]}.pem"
+  ssh_keyfile = "#{node[:celebdating][:root_path]}/.ssh/#{app_name}.pem"
 
   file ssh_keyfile do
     content deploy[:scm][:ssh_key]
