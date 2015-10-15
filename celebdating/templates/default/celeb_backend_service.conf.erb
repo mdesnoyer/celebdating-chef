@@ -1,0 +1,14 @@
+description "Celebrity Dating"
+
+start on runlevel [234]
+stop on runlevel [0156]
+
+kill timeout 1800
+limit nofile 65536 65536
+
+setuid <%= @node[:celebdating][:runuser] %>
+setgid neon
+
+exec python <%= @repo_root %>/server/api/controllers.py --db_host <%= @db[:host]%> --db_user <%=@db[:username]%> --db_port <%=db[:port]%> --db_password <%=@db[:password]%> >> <%= @node[:celebdating][:log_dir]%>/celeb_backend.stdout 2> <%= @node[:celebdating][:log_dir]%>/celeb_backend.stderr
+
+respawn
