@@ -42,6 +42,7 @@ directory "#{node[:celebdating][:root_path]}/.ssh/" do
 end
 
 # Setup dependencies
+include_recipe "apt"
 node.default[:python][:version] = '2.7.5'
 include_recipe "python"
 
@@ -84,6 +85,24 @@ node[:deploy].each do |app_name, deploy|
     user "neon"
     group "neon"
     ssh_wrapper "#{node[:celebdating][:root_path]}/celebdating-wrap-ssh4git.sh"
+  end
+
+  # Create the virtual environment and install python dependencies
+  venv = "#{repo_path}/.pyenv"
+  python_virtualenv venv do
+    interpreter "python2.7"
+    owner "neon"
+    group "neon"
+    action :create
+  end
+  bash "install_python_deps" do
+    cwd repo_path
+    user "neon"
+    group "neon"
+    code <<-EOH
+       source .pyenv/bin/activate
+       pip install -r requirements.txt
+    EOH
   end
 
   # Write the daemon service wrapper
