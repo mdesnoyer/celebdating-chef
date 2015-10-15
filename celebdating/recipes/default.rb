@@ -6,7 +6,7 @@
 #
 # All rights reserved - Do Not Redistribute
 #
-chef_gem 'aws-sdk'
+chef_gem 'aws'
 
 # Setup users and directories
 user "neon" do
@@ -91,7 +91,8 @@ node[:deploy].each do |app_name, deploy|
 
   # Get the model file
   s3_file "#{repo_path}/faces.model" do
-    source node[:celebdating][:face_cluster_model]
+    bucket node[:celebdating][:face_cluster_model_bucket]
+    remote_path node[:celebdating][:face_cluster_model_path]
     owner "neon"
     group "neon"
     action :create

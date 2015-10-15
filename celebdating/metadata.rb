@@ -9,5 +9,6 @@ version          '0.1.0'
 depends 'python', "= 1.4.6"
 depends 'apt'
 depends 'git'
+depends 'aws'
 
 supports 'ubuntu'
