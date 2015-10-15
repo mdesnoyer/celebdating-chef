@@ -60,8 +60,9 @@ node[:deploy].each do |app_name, deploy|
   Chef::Log.info("Deploying app #{app_name} using code path #{repo_path}")
 
   # Put the ssh key to get to the repo
-  ssh_key_file = "#{node[:celebdating][:root_path]}/.ssh/#{data[:name]}.pem"
-  file ssh_key_file do
+  ssh_keyfile = "#{node[:celebdating][:root_path]}/.ssh/#{data[:name]}.pem"
+
+  file ssh_keyfile do
     content deploy[:scm][:ssh_key]
     mode "0600"
     owner "neon"
@@ -74,7 +75,7 @@ node[:deploy].each do |app_name, deploy|
     group "neon"
     source "wrap-ssh4git.sh.erb"
     mode "0755"
-    variables({:ssh_key => ssh_key_file})
+    variables({:ssh_key => ssh_keyfile})
   end
 
   # Get the code repository
