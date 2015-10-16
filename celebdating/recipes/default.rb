@@ -107,19 +107,11 @@ node[:deploy].each do |app_name, deploy|
   end
 
   # Create the virtual environment and install python dependencies
-  venv = "#{repo_path}/.pyenv"
-  python_virtualenv venv do
-    interpreter "python2.7"
-    owner "neon"
-    group "neon"
-    action :create
-  end
   bash "install_python_deps" do
     cwd repo_path
-    user "neon"
-    group "neon"
+    user "root"
+    group "root"
     code <<-EOH
-       source .pyenv/bin/activate
        pip install -r requirements.txt
     EOH
   end
