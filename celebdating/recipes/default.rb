@@ -108,7 +108,7 @@ node[:deploy].each do |app_name, deploy|
 
   # Create the virtual environment and install python dependencies
   bash "install_python_deps" do
-    cwd repo_path
+    cwd "#{repo_path}/server"
     user "root"
     group "root"
     code <<-EOH
