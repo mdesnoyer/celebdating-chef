@@ -89,10 +89,18 @@ node[:deploy].each do |app_name, deploy|
     ssh_wrapper "#{node[:celebdating][:root_path]}/celebdating-wrap-ssh4git.sh"
   end
 
-  # Get the model file
+  # Get the model files
   s3_file "#{repo_path}/faces.model" do
     bucket node[:celebdating][:face_cluster_model_bucket]
     remote_path node[:celebdating][:face_cluster_model_path]
+    owner "neon"
+    group "neon"
+    action :create
+    mode "0644"
+  end
+  s3_file "#{repo_path}/celebrities.model" do
+    bucket node[:celebdating][:celebrity_model_bucket]
+    remote_path node[:celebdating][:celebrity_model_path]
     owner "neon"
     group "neon"
     action :create
@@ -125,7 +133,8 @@ node[:deploy].each do |app_name, deploy|
     mode "0644"
     variables({repo_root => repo_path,
                 db => deploy[:database],
-                model_file => "#{repo_path}/faces.model"})
+                face_model_file => "#{repo_path}/faces.model",
+                celebrity_model_file => "#{repo_path}/celebrities.model"})
   end
 
   # Define the service
