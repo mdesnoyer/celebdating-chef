@@ -131,10 +131,10 @@ node[:deploy].each do |app_name, deploy|
     owner "root"
     group "root"
     mode "0644"
-    variables({repo_root => repo_path,
-                db => deploy[:database],
-                face_model_file => "#{repo_path}/faces.model",
-                celebrity_model_file => "#{repo_path}/celebrities.model"})
+    variables({:repo_root => repo_path,
+               :db => deploy[:database],
+               :face_model_file => "#{repo_path}/faces.model",
+               :celebrity_model_file => "#{repo_path}/celebrities.model"})
   end
 
   # Define the service
