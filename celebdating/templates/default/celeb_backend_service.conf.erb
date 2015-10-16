@@ -10,6 +10,7 @@ setuid <%= @node[:celebdating][:runuser] %>
 setgid neon
 
 chdir <%= @repo_root %>
+env PYTHONPATH=/home/ubuntu/caffe/python
 exec python <%= @repo_root %>/server/api/controllers.py --db_host <%= @db[:host]%> --db_user <%= @db[:username] %> --db_port <%= @db[:port] %> --db_password <%= @db[:password] %> --db_name <%= @db[:database] %> --caffe_net_model <%= @caffee_net_model %>--face_model <%= @face_model_file %> --celebreity_model <%= @celebrity_model_file %> --port <%= @node[:celebdating][:port] %> --haar_model <%= @haar_model_file %> >> <%= @node[:celebdating][:log_dir] %>/celeb_backend.stdout 2> <%= @node[:celebdating][:log_dir]%>/celeb_backend.stderr
 
 respawn
