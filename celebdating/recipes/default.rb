@@ -132,7 +132,7 @@ node[:deploy].each do |app_name, deploy|
     mode "0644"
     variables({:repo_root => repo_path,
                :db => deploy[:database],
-                :caffe_net_file => "#{repo_path}/caffe_net.model"
+                :caffe_net_file => "#{repo_path}/caffe_net.model",
                 :face_model_file => "#{repo_path}/faces.model",
                 :celebrity_model_file => "#{repo_path}/celebrities.model",
                 :haar_model_file => "#{repo_path}/server/haarcascade_frontalface_alt2.xml"})
