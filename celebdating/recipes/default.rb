@@ -12,7 +12,6 @@ chef_gem 'aws'
 user "neon" do
   action :create
   system true
-  gid "neon"
 end
 
 user node[:celebdating][:runuser] do
@@ -134,7 +133,8 @@ node[:deploy].each do |app_name, deploy|
     variables({:repo_root => repo_path,
                :db => deploy[:database],
                :face_model_file => "#{repo_path}/faces.model",
-               :celebrity_model_file => "#{repo_path}/celebrities.model"})
+               :celebrity_model_file => "#{repo_path}/celebrities.model",
+                :haar_model_file => "#{repo_path}/server/haarcascade_frontalface_alt2.xml"})
   end
 
   # Define the service
